@@ -75,6 +75,11 @@ def home(request):
     return render(request, "providers/index.html", data)
 
 
-def new(request):
+def add_provider(request):
     """New page"""
     return render(request, "providers/add-provider.html")
+
+
+def add_language(request):
+    "Add language page"
+    return render(request, "providers/add-language.html")
