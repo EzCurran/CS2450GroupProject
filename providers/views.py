@@ -84,7 +84,10 @@ def add_language(request):
     "Add language page"
     return render(request, "providers/add-language.html")
 
-
 def add_specialty(request):
     """Add specialty page"""
     return render(request, "providers/add-specialty.html")
+
+def add_insurance(request):
+    """Add insurance page"""
+    return render(request, "providers/add-insurance.html")
