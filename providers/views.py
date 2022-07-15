@@ -1,5 +1,7 @@
 """Views"""
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from .forms import ProviderForm, InsuranceForm, SpecialtyForm, LanguageForm
 
 
 def home(request):
@@ -77,17 +79,52 @@ def home(request):
 
 def add_provider(request):
     """New page"""
+    if request.method == 'POST':
+        form  = ProviderForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/thanks/')
+
+    else:
+        form = ProviderForm()
     return render(request, "providers/add-provider.html")
 
 
 def add_language(request):
     "Add language page"
+    if request.method == 'POST':
+        form = LanguageForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = LanguageForm()
     return render(request, "providers/add-language.html")
 
 def add_specialty(request):
     """Add specialty page"""
+    if request.method == 'POST':
+        form = SpecialtyForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/thanks/')
+
+    else:
+        form = SpecialtyForm()
     return render(request, "providers/add-specialty.html")
 
 def add_insurance(request):
     """Add insurance page"""
+    if request.method == 'POST':
+        form = InsuranceForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/thanks/')
+
+    else:
+        form = InsuranceForm()
     return render(request, "providers/add-insurance.html")
