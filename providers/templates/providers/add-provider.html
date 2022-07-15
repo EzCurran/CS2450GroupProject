@@ -33,12 +33,14 @@
         </div>
       </div>
       <div class="row">
-        <input
-          name="name"
-          type="text"
-          placeholder="Specialties"
-          class="border rounded mb-3 p-2"
-        />
+        <label for="specialties">Specialties</label>
+        <select name="specialties" id="specialties" multiple>
+          {% for specialty in specialties %}
+            <option value="{{ specialty.id }}">
+              {{ specialty.name }}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <div class="row">
         <input

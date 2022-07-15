@@ -3,6 +3,7 @@ from cgi import print_form
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import ProviderForm, InsuranceForm, SpecialtyForm, LanguageForm
+from .models import Specialty
 
 
 def home(request):
@@ -80,8 +81,8 @@ def home(request):
 
 def add_provider(request):
     """New page"""
-    if request.method == 'POST':
-        form  = ProviderForm(request.POST)
+    if request.method == "POST":
+        form = ProviderForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -89,12 +90,19 @@ def add_provider(request):
 
     else:
         form = ProviderForm()
-    return render(request, "providers/add-provider.html")
+
+    specialties = Specialty.objects.all()
+
+    data = {
+        "specialties": specialties,
+    }
+
+    return render(request, "providers/add-provider.html", data)
 
 
 def add_language(request):
     "Add language page"
-    if request.method == 'POST':
+    if request.method == "POST":
         form = LanguageForm(request.POST)
 
         if form.is_valid():
@@ -104,9 +112,10 @@ def add_language(request):
         form = LanguageForm()
     return render(request, "providers/add-language.html")
 
+
 def add_specialty(request):
     """Add specialty page"""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SpecialtyForm(request.POST)
 
         if form.is_valid():
@@ -117,9 +126,10 @@ def add_specialty(request):
         form = SpecialtyForm()
     return render(request, "providers/add-specialty.html")
 
+
 def add_insurance(request):
     """Add insurance page"""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = InsuranceForm(request.POST)
 
         if form.is_valid():
