@@ -11,11 +11,12 @@
       {% csrf_token %}
       <h3>Add New Provider</h3>
       <div class="row">
-        <input type=text" placeholder="Name" class="border rounded mb-3 p-2">
+        <input name="full_name" type="text" placeholder="Full Name" class="border rounded mb-3 p-2">
       </div>
       <div class="row">
         <div class="col-6 p-0">
           <input
+            name="email"
             type="text"
             placeholder="Email"
             class="border rounded mb-3 p-2 w-100"
@@ -24,6 +25,7 @@
         <div class="col-1"></div>
         <div class="col-5 p-0">
           <input
+            name="phone"
             type="text"
             placeholder="Phone"
             class="border rounded mb-3 pt-2 pb-2 w-100"
@@ -32,13 +34,7 @@
       </div>
       <div class="row">
         <input
-          type="text"
-          placeholder="Licences"
-          class="border rounded mb-3 p-2"
-        />
-      </div>
-      <div class="row">
-        <input
+          name="name"
           type="text"
           placeholder="Specialties"
           class="border rounded mb-3 p-2"
@@ -46,6 +42,7 @@
       </div>
       <div class="row">
         <input
+          name="name"
           type="text"
           placeholder="Languages"
           class="border rounded mb-3 p-2"
@@ -53,8 +50,15 @@
       </div>
       <div class="row">
         <input
+          name="name"
           type="text"
           placeholder="Insurance"
+          class="border rounded mb-3 p-2"
+        />
+        <input
+          name="details"
+          type="text"
+          placeholder="Details"
           class="border rounded mb-3 p-2"
         />
       </div>
