@@ -1,6 +1,7 @@
 """Views"""
+from cgi import print_form
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import ProviderForm, InsuranceForm, SpecialtyForm, LanguageForm
 
 
@@ -84,7 +85,7 @@ def add_provider(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/thanks/')
+            return redirect("home")
 
     else:
         form = ProviderForm()
@@ -98,7 +99,7 @@ def add_language(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/thanks/')
+            return redirect("home")
     else:
         form = LanguageForm()
     return render(request, "providers/add-language.html")
@@ -110,7 +111,7 @@ def add_specialty(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/thanks/')
+            return redirect("home")
 
     else:
         form = SpecialtyForm()
@@ -123,7 +124,7 @@ def add_insurance(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/thanks/')
+            return redirect("home")
 
     else:
         form = InsuranceForm()

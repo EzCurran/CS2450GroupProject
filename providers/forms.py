@@ -1,16 +1,23 @@
+from dataclasses import fields
 from django import forms
+from .models import Insurance, Language, Provider, Specialty
 
-class ProviderForm(forms.Form):
-    full_name = forms.CharField(max_length=250, label="Full Name")
-    phone = forms.CharField(max_length=250, label="Phone")
-    email = forms.CharField(max_length=250, label="Email")
+class ProviderForm(forms.ModelForm):
+    class Meta:
+        model = Provider
+        fields = ["full_name", "phone", "email"]
 
-class InsuranceForm(forms.Form):
-    name = forms.CharField(max_length=250, label="Name")
-    details = forms.CharField(max_length=250, label="Details")
+class InsuranceForm(forms.ModelForm):
+    class Meta:
+        model = Insurance
+        fields = ["name", "details"]
 
-class SpecialtyForm(forms.Form):
-    name = forms.CharField(max_length=250, label="Name")
+class SpecialtyForm(forms.ModelForm):
+    class Meta:
+        model = Specialty
+        fields = ["name"]
 
-class LanguageForm(forms.Form):
-    name = forms.CharField(max_length=250, label="Name")
+class LanguageForm(forms.ModelForm):
+    class Meta:
+        model = Language
+        fields = ["name"]
