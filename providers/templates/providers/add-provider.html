@@ -32,7 +32,7 @@
           />
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-3">
         <label for="specialties">Specialties</label>
         <select name="specialties" id="specialties" multiple>
           {% for specialty in specialties %}
@@ -42,36 +42,25 @@
           {% endfor %}
         </select>
       </div>
-      <div class="row">
-        <input
-          name="name"
-          type="text"
-          placeholder="Languages"
-          class="border rounded mb-3 p-2"
-        />
-      </div>
-      <div class="row">
-        <input
-          name="name"
-          type="text"
-          placeholder="Insurance"
-          class="border rounded mb-3 p-2"
-        />
-        <input
-          name="details"
-          type="text"
-          placeholder="Details"
-          class="border rounded mb-3 p-2"
-        />
+      <div class="row mb-3">
+        <label for="languages">Languages</label>
+        <select name="languages" id="languages" multiple>
+          {% for language in languages %}
+            <option value="{{ language.id }}">
+              {{ language.name }}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <div class="row mb-3">
-        <label for="comments">Comments:</label>
-        <textarea
-          id="comments"
-          rows="7"
-          cols="50"
-          class="border rounded p-2"
-        ></textarea>
+        <label for="insurances">Insurances</label>
+        <select name="insurances" id="insurances" multiple>
+          {% for insurance in insurances %}
+            <option value="{{ insurance.id }}">
+              {{ insurance.name }}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <div class="row">
         <input type="submit" class="btn btn-info align-bottom" value="Save" />

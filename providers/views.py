@@ -3,7 +3,7 @@ from cgi import print_form
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import ProviderForm, InsuranceForm, SpecialtyForm, LanguageForm
-from .models import Specialty
+from .models import Specialty, Language, Insurance
 
 
 def home(request):
@@ -92,9 +92,13 @@ def add_provider(request):
         form = ProviderForm()
 
     specialties = Specialty.objects.all()
+    language = Language.objects.all()
+    insurance = Insurance.objects.all()
 
     data = {
         "specialties": specialties,
+        "languages": language,
+        "insurances": insurance
     }
 
     return render(request, "providers/add-provider.html", data)
