@@ -59,10 +59,8 @@
               <th>Phone</th>
               <th>Email</th>
               <th>Insurance</th>
-              <th>Licenses</th>
               <th>Specialties</th>
               <th>Languages</th>
-              <!-- <th>Comments</th> -->
               <th>Edit/Delete</th>
             </tr>
           </thead>
@@ -70,14 +68,12 @@
             {% for provider in providers %}
             <tr>
               <td>{{ provider.id }}</td>
-              <td>{{ provider.name }}</td>
+              <td>{{ provider.full_name }}</td>
               <td>{{ provider.phone }}</td>
               <td>{{ provider.email }}</td>
-              <td>{{ provider.insurance|join:', ' }}</td>
-              <td>{{ provider.licenses|join:', ' }}</td>
-              <td>{{ provider.specialties|join:', ' }}</td>
-              <td>{{ provider.languages|join:', ' }}</td>
-              <!-- <td>{{ provider.comments }}</td> -->
+			  <td>{{ provider.insurance_list|join:', ' }}</td>
+			  <td>{{ provider.specialty_list|join:', ' }}</td>
+			  <td>{{ provider.language_list|join:', ' }}</td>
               <td>
                 <form class="edit-delete-form" action="#">
                   <button class="btn btn-info">Edit</button>
