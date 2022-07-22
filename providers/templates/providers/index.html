@@ -75,10 +75,11 @@
 			  <td>{{ provider.specialty_list|join:', ' }}</td>
 			  <td>{{ provider.language_list|join:', ' }}</td>
               <td>
-                <form class="edit-delete-form" action="#">
                   <button class="btn btn-info">Edit</button>
-                  <button class="btn btn-danger">Delete</button>
-                </form>
+                  <form action="providers/delete/" method="post">{% csrf_token %}           
+                    <input type="hidden" name="providerID" value={{ provider.id }}>       
+                    <input type="submit" class="btn btn-danger" value="Delete"></input>
+                  </form>
               </td>
             </tr>
             {% endfor %}

@@ -7,7 +7,9 @@ from .models import Specialty, Language, Insurance, Provider
 
 
 def home(request):
-    """Home page"""
+    """Home page"""    
+        # Provider.objects.delete(request.DELETE.get("providerID"))
+        
     data = {
         "providers": Provider.objects.all(),
         "insurance": Insurance.objects.all(),
@@ -17,6 +19,14 @@ def home(request):
 
     return render(request, "providers/index.html", data)
 
+def delete_provider(request):
+    if request.method == "POST":
+        form = (request.POST)
+        providerId = (form.get("providerID"))
+
+        Provider.objects.filter(id=providerId).delete()
+
+    return redirect("home")
 
 def add_provider(request):
     """New page"""
