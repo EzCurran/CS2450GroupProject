@@ -34,7 +34,13 @@ def add_provider(request):
         form = ProviderForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            new_provider = form.save()
+            for i in request.POST.get('insurances'):
+                new_provider.insurance.add(i)
+            for s in request.POST.get('specialties'):
+                new_provider.specialty.add(s)
+            for l in request.POST.get('languages'):
+                new_provider.language.add(l)
             return redirect("home")
 
     else:
