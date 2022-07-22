@@ -14,7 +14,21 @@ def home(request):
         "languages": Language.objects.all(),
         "specialties": Specialty.objects.all(),
     }
-
+    
+    name = request.GET.get('name')
+    if name:
+        data["providers"]=data["providers"].filter(full_name=name)
+    ins = request.GET.get('insurance')
+    if ins:
+        data["providers"]=data["providers"].filter(insurance__id=ins)
+    specialty = request.GET.get('specialty')
+    if specialty:
+        data["providers"]=data["providers"].filter(specialty__id=specialty)
+    language = request.GET.get('language')
+    if language:
+        data["providers"]=data["providers"].filter(language__id=language)
+    
+    
     return render(request, "providers/index.html", data)
 
 
