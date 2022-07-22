@@ -7,7 +7,9 @@ from .models import Specialty, Language, Insurance, Provider
 
 
 def home(request):
-    """Home page"""
+    """Home page"""    
+        # Provider.objects.delete(request.DELETE.get("providerID"))
+        
     data = {
         "providers": Provider.objects.all(),
         "insurance": Insurance.objects.all(),
@@ -31,6 +33,14 @@ def home(request):
     
     return render(request, "providers/index.html", data)
 
+def delete_provider(request):
+    if request.method == "POST":
+        form = (request.POST)
+        providerId = (form.get("providerID"))
+
+        Provider.objects.filter(id=providerId).delete()
+
+    return redirect("home")
 
 def add_provider(request):
     """New page"""
@@ -38,7 +48,13 @@ def add_provider(request):
         form = ProviderForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            new_provider = form.save()
+            for i in request.POST.get('insurances'):
+                new_provider.insurance.add(i)
+            for s in request.POST.get('specialties'):
+                new_provider.specialty.add(s)
+            for l in request.POST.get('languages'):
+                new_provider.language.add(l)
             return redirect("home")
 
     else:
