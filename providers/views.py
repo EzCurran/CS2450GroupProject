@@ -1,6 +1,8 @@
 """Views"""
 from cgi import print_form
-from django.http import HttpResponseRedirect
+import email
+from unicodedata import name
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import ProviderForm, InsuranceForm, SpecialtyForm, LanguageForm
 from .models import Specialty, Language, Insurance, Provider
@@ -9,7 +11,7 @@ from .models import Specialty, Language, Insurance, Provider
 def home(request):
     """Home page"""    
         # Provider.objects.delete(request.DELETE.get("providerID"))
-        
+    
     data = {
         "providers": Provider.objects.all(),
         "insurance": Insurance.objects.all(),
@@ -29,6 +31,8 @@ def home(request):
     language = request.GET.get('language')
     if language:
         data["providers"]=data["providers"].filter(language__id=language)
+
+    print(language)
     
     
     return render(request, "providers/index.html", data)
@@ -41,6 +45,50 @@ def delete_provider(request):
         Provider.objects.filter(id=providerId).delete()
 
     return redirect("home")
+
+def edit_provider(request):
+    """Edit page (same as new page)"""
+    if request.method == "POST":
+        form = ProviderForm(request.POST)
+        if form.is_valid():
+            obj = Provider.objects.get(full_name=(request.POST).get("full_name"))
+            obj.email = (request.POST).get("email")
+            obj.phone = (request.POST).get("phone")
+            obj.save()
+            obj.insurance.clear()
+            obj.specialty.clear()
+            obj.language.clear()
+            for i in request.POST.get('insurances'):
+                obj.insurance.add(i)
+            for s in request.POST.get('specialties'):
+                obj.specialty.add(s)
+            for l in request.POST.get('languages'):
+                obj.language.add(l)
+            return redirect("home")
+    else:
+        form = ProviderForm()
+
+    providerId = ((request.POST).get("providerID"))
+    obj = Provider.objects.get(id=providerId)
+
+    specialties = Specialty.objects.all()
+    language = Language.objects.all()
+    insurance = Insurance.objects.all()
+
+    specialtiesSelected = obj.specialty.all()
+    languagesSelected = obj.language.all()
+    insurancesSelected = obj.insurance.all()
+
+    data = {
+        "provider": obj,
+        "specialties": specialties,
+        "languages": language,
+        "insurances": insurance,
+        "selectedSpec": specialtiesSelected,
+        "selectedLang": languagesSelected,
+        "selectedIns": insurancesSelected
+    }
+    return render(request, "providers/edit-provider.html", data)
 
 def add_provider(request):
     """New page"""
