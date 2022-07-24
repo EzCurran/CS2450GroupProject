@@ -3,17 +3,9 @@
   <div class="row">
     <div class="col-2 bg-custom-gray full-height padding-top-custom">
       <nav class="sidebar px-1">
-        <form class="search-container" action="{% url 'home' %}" method="get">
+        <form class="search-container d-flex flex-column gap-2" action="{% url 'home' %}" method="get">
           <div class="row">
-            <input name="name" type="text" placeholder="Search by Name" />
-          </div>
-          <div class="row">
-            <select name="license" title="License">
-              <option selected disabled>License</option>
-              {% for license in licenses %}
-              <option value="{{ license.id }}">{{ license.name }}</option>
-              {% endfor %}
-            </select>
+            <input name="name" type="text" placeholder="Search" />
           </div>
           <div class="row">
             <select name="specialty" title="Specialty">
@@ -43,9 +35,14 @@
             <input
               type="submit"
               value="Search"
-              class="btn btn-info align-bottom"
+              class="btn btn-primary"
             />
           </div>
+		  <div class="row">
+			<a href="{% url 'home' %}" class="btn btn-outline-secondary">
+			  Clear Filters
+			</a>
+		  </div>
         </form>
       </nav>
     </div>
@@ -74,7 +71,7 @@
 			  <td>{{ provider.insurance_list|join:', ' }}</td>
 			  <td>{{ provider.specialty_list|join:', ' }}</td>
 			  <td>{{ provider.language_list|join:', ' }}</td>
-              <td>
+              <td class="d-flex gap-1">
                   <form action="providers/edit/" method="post">{% csrf_token %}           
                     <input type="hidden" name="providerID" value={{ provider.id }}>       
                     <input type="submit" class="btn btn-info" value="Edit"></input>
