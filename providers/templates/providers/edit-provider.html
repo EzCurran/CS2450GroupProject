@@ -1,0 +1,116 @@
+{% extends 'providers/layout.html' %}{% block content %}
+<div class="container-fluid vh-100 padding-top-custom">
+  <div
+    class="container-fluid padding-div-form-container w-50 d-flex align-items-center justify-content-center bg-secondary bg-gradient align-middle border rounded"
+  >
+    <form
+      action="{% url 'edit_provider' %}"
+      method="post"
+      class="w-75 h-75 mb-30 p-3"
+    >
+      {% csrf_token %}
+      <h3>Edit Provider</h3>
+      <div class="row">
+        <input 
+            name="full_name" 
+            type="text" 
+            value="{{provider.full_name}}"
+            placeholder="Full Name" 
+            readonly
+            class="border rounded mb-3 p-2" 
+        />
+      </div>
+      <div class="row">
+        <div class="col-6 p-0">
+          <input
+            name="email"
+            type="text"
+            value="{{provider.email}}"
+            placeholder="Email"
+            class="border rounded mb-3 p-2 w-100"
+          />
+        </div>
+        <div class="col-1"></div>
+        <div class="col-5 p-0">
+          <input
+            name="phone"
+            type="text"
+            value="{{provider.phone}}"
+            placeholder="Phone"
+            class="border rounded mb-3 pt-2 pb-2 w-100"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6 p-0">
+            <label for="selectedSpec">Original Specialties Selected</label>
+            <select name="selectedSpec" id="selectedSpec" multiple class="w-100">
+            {% for specialty in selectedSpec %}
+                <option value="{{ specialty.id }}">
+                {{ specialty.name }}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="col-6 p-0">
+            <label for="specialties">Specialties</label>
+            <select name="specialties" id="specialties" multiple class="w-100">
+            {% for specialty in specialties %}
+                <option value="{{ specialty.id }}">
+                {{ specialty.name }}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6 p-0">
+            <label for="selectedLang">Original Languages Selected</label>
+            <select name="selectedLang" id="selectedLang" multiple class="w-100">
+            {% for language in selectedLang %}
+                <option value="{{ language.id }}">
+                {{ language.name }}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="col-6 p-0">
+            <label for="languages">Languages</label>
+            <select name="languages" id="languages" multiple class="w-100">
+            {% for language in languages %}
+                <option value="{{ language.id }}">
+                {{ language.name }}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6 p-0">
+            <label for="selectedIns">Original Insurances Selected</label>
+            <select name="selectedIns" id="selectedIns" multiple class="w-100">
+            {% for insurance in selectedIns %}
+                <option value="{{ insurance.id }}">
+                {{ insurance.name }}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="col-6 p-0">
+            <label for="insurances">Insurances</label>
+            <select name="insurances" id="insurances" multiple class="w-100">
+            {% for insurance in insurances %}
+                <option value="{{ insurance.id }}">
+                {{ insurance.name }}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+      </div>
+      <div class="row">
+        <input type="submit" class="btn btn-info align-bottom" value="Save" />
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
