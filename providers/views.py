@@ -1,7 +1,7 @@
 """Views"""
 import csv
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from .forms import ProviderForm, InsuranceForm, SpecialtyForm, LanguageForm
 from .models import Specialty, Language, Insurance, Provider
 
@@ -63,10 +63,9 @@ def home(request):
     return render(request, "providers/index.html", data)
 
 
-def delete_provider(request):
-    if request.method == "POST":
-        providerId = request.POST.get("providerID")
-        Provider.objects.filter(id=providerId).delete()
+def delete_provider(request, id):
+    provider = get_object_or_404(Provider, id=id)
+    provider.delete()
 
     return redirect("home")
 

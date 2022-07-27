@@ -3,7 +3,11 @@
   <div class="row">
     <div class="col-2 bg-custom-gray full-height padding-top-custom">
       <nav class="sidebar px-1">
-        <form class="search-container d-flex flex-column gap-2" action="{% url 'home' %}" method="get">
+        <form
+          class="search-container d-flex flex-column gap-2"
+          action="{% url 'home' %}"
+          method="get"
+        >
           <div class="row">
             <input name="name" type="text" placeholder="Name" />
           </div>
@@ -32,17 +36,13 @@
             </select>
           </div>
           <div class="row">
-            <input
-              type="submit"
-              value="Search"
-              class="btn btn-primary"
-            />
+            <input type="submit" value="Search" class="btn btn-primary" />
           </div>
-		  <div class="row">
-			<a href="{% url 'home' %}" class="btn btn-outline-secondary">
-			  Clear Filters
-			</a>
-		  </div>
+          <div class="row">
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+              Clear Filters
+            </a>
+          </div>
         </form>
       </nav>
     </div>
@@ -59,7 +59,7 @@
                     id="check-all"
                     type="checkbox"
                     value="{{ provider.id }}"
-                  >
+                  />
                 </th>
                 <th>Name</th>
                 <th>Phone</th>
@@ -74,7 +74,12 @@
               {% for provider in providers %}
               <tr>
                 <td>
-                  <input class="form-check-input provider-box" type="checkbox" name="selected" value="{{ provider.id }}">
+                  <input
+                    class="form-check-input provider-box"
+                    type="checkbox"
+                    name="selected"
+                    value="{{ provider.id }}"
+                  />
                 </td>
                 <td>{{ provider.full_name }}</td>
                 <td>{{ provider.phone }}</td>
@@ -83,14 +88,18 @@
                 <td>{{ provider.specialty_list|join:', ' }}</td>
                 <td>{{ provider.language_list|join:', ' }}</td>
                 <td class="d-flex gap-1">
-                    <form action="{% url 'edit_provider' provider.id %}" method="post">{% csrf_token %}
-                      <input type="hidden" name="providerID" value={{ provider.id }}>
-                      <input type="submit" class="btn btn-info" value="Edit"></input>
-                    </form>
-                    <form action="providers/delete/" method="post">{% csrf_token %}
-                      <input type="hidden" name="providerID" value={{ provider.id }}>
-                      <input type="submit" class="btn btn-danger" value="Delete"></input>
-                    </form>
+                  <a
+                    href="{% url 'edit_provider' provider.id %}"
+                    class="btn btn-info"
+                  >
+                    Edit
+                  </a>
+                  <a
+                    href="{% url 'delete_provider' provider.id %}"
+                    class="btn btn-danger"
+                  >
+                    Delete
+                  </a>
                 </td>
               </tr>
               {% endfor %}
