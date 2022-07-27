@@ -15,7 +15,7 @@ def home(request):
 
     name = request.GET.get("name")
     if name:
-        data["providers"] = data["providers"].filter(full_name=name)
+        data["providers"] = data["providers"].filter(full_name__icontains=name)
     ins = request.GET.get("insurance")
     if ins:
         data["providers"] = data["providers"].filter(insurance__id=ins)
