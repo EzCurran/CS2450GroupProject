@@ -48,43 +48,55 @@
     </div>
     <div class="col-10 padding-top-custom">
       <div class="container-fluid">
-        <table class="table table-striped">
-          <thead>
-            <tr class="border-bottom">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Insurance</th>
-              <th>Specialties</th>
-              <th>Languages</th>
-              <th>Edit/Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for provider in providers %}
-            <tr>
-              <td>{{ provider.id }}</td>
-              <td>{{ provider.full_name }}</td>
-              <td>{{ provider.phone }}</td>
-              <td>{{ provider.email }}</td>
-			  <td>{{ provider.insurance_list|join:', ' }}</td>
-			  <td>{{ provider.specialty_list|join:', ' }}</td>
-			  <td>{{ provider.language_list|join:', ' }}</td>
-              <td class="d-flex gap-1">
-                  <form action="{% url 'edit_provider' provider.id %}" method="post">{% csrf_token %}
-                    <input type="hidden" name="providerID" value={{ provider.id }}>
-                    <input type="submit" class="btn btn-info" value="Edit"></input>
-                  </form>
-                  <form action="providers/delete/" method="post">{% csrf_token %}
-                    <input type="hidden" name="providerID" value={{ provider.id }}>
-                    <input type="submit" class="btn btn-danger" value="Delete"></input>
-                  </form>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <form action="{% url 'export' %}" method="post" id="export">
+          {% csrf_token %}
+          <table class="table table-striped">
+            <thead>
+              <tr class="border-bottom">
+                <th>
+                  <input
+                    class="form-check-input"
+                    id="check-all"
+                    type="checkbox"
+                    value="{{ provider.id }}"
+                  >
+                </th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Insurance</th>
+                <th>Specialties</th>
+                <th>Languages</th>
+                <th>Edit/Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for provider in providers %}
+              <tr>
+                <td>
+                  <input class="form-check-input provider-box" type="checkbox" name="selected" value="{{ provider.id }}">
+                </td>
+                <td>{{ provider.full_name }}</td>
+                <td>{{ provider.phone }}</td>
+                <td>{{ provider.email }}</td>
+                <td>{{ provider.insurance_list|join:', ' }}</td>
+                <td>{{ provider.specialty_list|join:', ' }}</td>
+                <td>{{ provider.language_list|join:', ' }}</td>
+                <td class="d-flex gap-1">
+                    <form action="{% url 'edit_provider' provider.id %}" method="post">{% csrf_token %}
+                      <input type="hidden" name="providerID" value={{ provider.id }}>
+                      <input type="submit" class="btn btn-info" value="Edit"></input>
+                    </form>
+                    <form action="providers/delete/" method="post">{% csrf_token %}
+                      <input type="hidden" name="providerID" value={{ provider.id }}>
+                      <input type="submit" class="btn btn-danger" value="Delete"></input>
+                    </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
       </div>
     </div>
   </div>
