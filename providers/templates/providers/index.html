@@ -67,7 +67,7 @@
                 <th>Insurance</th>
                 <th>Specialties</th>
                 <th>Languages</th>
-                <th>Edit/Delete</th>
+                <th>Options</th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@
                 <td>{{ provider.insurance_list|join:', ' }}</td>
                 <td>{{ provider.specialty_list|join:', ' }}</td>
                 <td>{{ provider.language_list|join:', ' }}</td>
-                <td class="d-flex gap-1">
+                <td>
                   <a
                     href="{% url 'edit_provider' provider.id %}"
                     class="btn btn-info"
