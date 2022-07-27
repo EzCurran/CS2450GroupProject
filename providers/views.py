@@ -1,7 +1,41 @@
 """Views"""
-from django.shortcuts import render, redirect, get_object_or_404
+import csv
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from .forms import ProviderForm, InsuranceForm, SpecialtyForm, LanguageForm
 from .models import Specialty, Language, Insurance, Provider
+
+
+def export(request):
+    selected = request.POST.getlist("selected")
+
+    if len(selected) == 0:
+        # No providers selected, return to home page.
+        return redirect("home")
+
+    # Build HTTP response to return a csv.
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="providers.csv"'
+
+    # Create a csv writer writing to the response object and write the headers.
+    writer = csv.writer(response, quoting=csv.QUOTE_ALL)
+    writer.writerow(["Name", "Phone", "Email", "Insurance", "Specialties", "Languages"])
+
+    # Build the CSV file with the selected providers.
+    providers = Provider.objects.filter(id__in=selected).all()
+    for provider in providers:
+        writer.writerow(
+            [
+                provider.full_name,
+                provider.phone,
+                provider.email,
+                ", ".join(provider.insurance_list()),
+                ", ".join(provider.specialty_list()),
+                ", ".join(provider.language_list()),
+            ]
+        )
+
+    return response
 
 
 def home(request):

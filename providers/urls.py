@@ -10,4 +10,5 @@ urlpatterns = [
     path("specialties/new/", views.add_specialty, name="new_specialty"),
     path("insurance/new/", views.add_insurance, name="new_insurance"),
     path("providers/<int:id>/edit/", views.edit_provider, name="edit_provider"),
+    path("providers/export", views.export, name="export"),
 ]

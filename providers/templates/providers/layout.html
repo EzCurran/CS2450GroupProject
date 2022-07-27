@@ -38,11 +38,36 @@
           <a href="{% url 'new_insurance' %}" class="btn btn-light">
             Add Insurance
           </a>
-          <a href="#" class="btn btn-success">Export</a>
+          <button id="export-btn" class="btn btn-success">Export</button>
         </nav>
       </div>
     </header>
     <main>{% block content %}{% endblock %}</main>
     <footer></footer>
+    <script>
+      const exportBtn = document.querySelector("#export-btn");
+      const form = document.querySelector("#export");
+      const checkAll = document.querySelector("#check-all");
+      const boxes = document.querySelectorAll(".provider-box");
+
+      // Add functionality for select all checkbox.
+      checkAll.addEventListener("change", (e) => {
+        if (e.target.checked) {
+          boxes.forEach((b) => (b.checked = true));
+        } else {
+          boxes.forEach((b) => (b.checked = false));
+        }
+      });
+
+      exportBtn.addEventListener("click", () => {
+        // Make sure a provider is selected.
+        if (!Array.from(boxes).some((b) => b.checked)) {
+          alert("You must select at least one provider to export.");
+          return;
+        }
+
+        form.submit();
+      });
+    </script>
   </body>
 </html>
