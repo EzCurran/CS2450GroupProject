@@ -72,12 +72,12 @@
 			  <td>{{ provider.specialty_list|join:', ' }}</td>
 			  <td>{{ provider.language_list|join:', ' }}</td>
               <td class="d-flex gap-1">
-                  <form action="providers/edit/" method="post">{% csrf_token %}           
-                    <input type="hidden" name="providerID" value={{ provider.id }}>       
+                  <form action="{% url 'edit_provider' provider.id %}" method="post">{% csrf_token %}
+                    <input type="hidden" name="providerID" value={{ provider.id }}>
                     <input type="submit" class="btn btn-info" value="Edit"></input>
                   </form>
-                  <form action="providers/delete/" method="post">{% csrf_token %}           
-                    <input type="hidden" name="providerID" value={{ provider.id }}>       
+                  <form action="providers/delete/" method="post">{% csrf_token %}
+                    <input type="hidden" name="providerID" value={{ provider.id }}>
                     <input type="submit" class="btn btn-danger" value="Delete"></input>
                   </form>
               </td>
