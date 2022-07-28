@@ -13,26 +13,29 @@
           </div>
           <div class="row">
             <select name="specialty" title="Specialty">
-              <option {% if not chosenSpecialty %}selected{% endif %} disabled>Specialty</option>
+              <option {% if not chosenSpecialty %}selected{% endif %} disabled hidden>Specialty</option>
               {% for specialty in specialties %}
               <option value="{{ specialty.id }}"{% if chosenSpecialty == specialty.id|stringformat:'s' %}selected {% endif %}>{{ specialty.name }}</option>
               {% endfor %}
+              <option value="">None</option>
             </select>
           </div>
           <div class="row">
             <select name="language" title="Language">
-              <option {% if not chosenSpecialty %}selected{% endif %} disabled>Language</option>
+              <option {% if not chosenSpecialty %}selected{% endif %} disabled hidden>Language</option>
               {% for language in languages %}
               <option value="{{ language.id }}"{% if chosenLanguage == language.id|stringformat:'s' %}selected {% endif %}>{{ language.name }}</option>
               {% endfor %}
+              <option value="">None</option>
             </select>
           </div>
           <div class="row">
             <select name="insurance" title="Insurance">
-              <option {% if not chosenInsurance %}selected{% endif %} disabled>Insurance</option>
+              <option {% if not chosenInsurance %}selected{% endif %} disabled hidden>Insurance</option>
               {% for i in insurance %}
-              <option value="{{ i.id }}"{% if chosenInsurance == insurance.id|stringformat:'s' %}selected {% endif %}>{{ i.name }}</option>
+              <option value="{{ i.id }}"{% if chosenInsurance == i.id|stringformat:'s' %}selected {% endif %}>{{ i.name }}</option>
               {% endfor %}
+              <option value="">None</option>
             </select>
           </div>
           <div class="row">
