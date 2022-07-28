@@ -31,7 +31,7 @@
             <select name="insurance" title="Insurance">
               <option {% if not chosenInsurance %}selected{% endif %} disabled>Insurance</option>
               {% for i in insurance %}
-              <option value="{{ i.id }}"{% if chosenInsurance == i.id|stringformat:'s' %}selected {% endif %}>{{ i.name }}</option>
+              <option value="{{ i.id }}"{% if chosenInsurance == insurance.id|stringformat:'s' %}selected {% endif %}>{{ i.name }}</option>
               {% endfor %}
             </select>
           </div>

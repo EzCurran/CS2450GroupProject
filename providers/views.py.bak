@@ -55,7 +55,7 @@ def home(request):
     ins = request.GET.get("insurance")
     if ins:
         data["providers"] = data["providers"].filter(insurance__id=ins)
-        data["chosenInsurance"] = ins
+        data["ins"] = ins
     specialty = request.GET.get("specialty")
     if specialty:
         data["providers"] = data["providers"].filter(specialty__id=specialty)
